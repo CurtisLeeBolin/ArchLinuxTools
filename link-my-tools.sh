@@ -10,3 +10,9 @@ for i in ~/Projects/my-tools/*.{py,sh}; do
 
   ln -s "${i}" ~/.local/bin/"${j}"
 done
+
+for i in */; do
+  cd ${i}
+  make all
+  cd ..
+done

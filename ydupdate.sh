@@ -11,9 +11,9 @@ fi
 
 cd ~/Projects
 
-if [ -d youtube-dl ]; then
-  cd youtube-dl
+if [ -d yt-dlp ]; then
+  cd yt-dlp
   git pull
 else
-  git clone https://github.com/ytdl-org/youtube-dl.git
+  git clone https://github.com/yt-dlp/yt-dlp.git
 fi
