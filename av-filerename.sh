@@ -1,13 +1,15 @@
 #!/bin/bash
 
-before="$1"
-after="$3"
+d=2
+if [ "${1}" == "-3" ]; then
+  d=3
+  shift
+fi
 
-i=$2
+i=${2}
 for f in *; do
-	if [ -f "$f" ]; then
-		new=$(printf "%s%02d%s" "$before" "$i" "$after")
-		mv -i -- "${f}" "${new}"
+	if [ -f "${f}" ]; then
+		mv -i -- "${f}" "$(printf "%s%0${d}d%s" "${1}" "${i}" "${3}")"
 		let i=i+1
 	fi
 done
