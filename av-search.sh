@@ -12,7 +12,9 @@ for result in "${resultArray[@]}"; do
 	fileType="${result##*.}"
 	fileType="${fileType,,}" #lowercase
 	if [[ " ${fileTypeArray[@]} " =~ " ${fileType} " ]]; then
+    a=$(ls -sh "${result}")
+    echo -e "${a%%\ *}"
 		ffmpeg -i "${result}" 2>&1 | grep --color=always "Stream #0:.*:\|Duration:*"
-		echo
+		echo -e "\n\n"
 	fi
 done

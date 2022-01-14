@@ -7,7 +7,10 @@ url=$@
 
 download_video () {
 	while true; do
- 		yt-dlp --embed-subs --add-metadata \
+ 		yt-dlp \
+      --sub-langs "en,id,-live_chat" --write-subs --write-auto-subs \
+      --embed-subs --compat-options no-keep-subs --convert-subs ass \
+      --add-metadata \
     	--merge-output-format mkv --ignore-errors --sub-lang en \
     	--output "%(upload_date)s %(uploader)s - %(title)s (%(id)s).%(ext)s" "$1"
 		if [[ $? -eq 0 ]]; then
