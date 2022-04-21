@@ -1,8 +1,9 @@
 #!/bin/bash
 
 d=2
-if [ "${1}" == "-3" ]; then
-  d=3
+if [ "${1}" == "-n" ]; then
+  shift
+  d="${1}"
   shift
 fi
 
