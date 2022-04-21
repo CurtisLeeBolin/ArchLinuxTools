@@ -3,7 +3,7 @@
 errorFileArray=()
 
 for i in *.mkv; do
-  ffprobe -i "${i}" 2>null
+  ffprobe -i "${i}" 2>/dev/null
   if [ $? -eq 1 ]; then
     errorFileArray+=("${i}")
   fi
