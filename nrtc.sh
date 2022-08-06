@@ -21,7 +21,7 @@ for i in *; do
     mv "${i}" "${inDir}"/"${i}"
     ffmpeg \
       -i "${inDir}"/"${i}" \
-      -filter:v scale=w=1920:h=1080:force_original_aspect_ratio=decrease \
+      -filter:v "scale=w='max(1920,iw)':h='min(1080,ih)':force_original_aspect_ratio=decrease:force_divisible_by=8" \
       -c:v libx265 \
       -c:a aac \
       -movflags +faststart \
