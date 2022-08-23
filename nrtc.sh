@@ -1,6 +1,6 @@
 #!/bin/bash
 
-extArray=( avi mkv mp4 rmvb wmv )
+extArray=( avi mkv mov mp4 m4a m4v 3pg rmvb wmv )
 
 inDir='0in'
 outDir='0out'
@@ -16,7 +16,7 @@ done
 for i in *; do
     ext="${i##*.}"
     extLower="${ext@L}"
-  if [ -f "${i}" ] && [[ ! " ${array[*]} " =~ " ${extLower} " ]]; then
+  if [ -f "${i}" ] && [[ " ${extArray[@]} " =~ " ${extLower} " ]]; then
     filename="${i%.*}"
     mv "${i}" "${inDir}"/"${i}"
     ffmpeg \
