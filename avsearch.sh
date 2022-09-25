@@ -12,9 +12,11 @@ for result in "${resultArray[@]}"; do
 	fileType="${result##*.}"
 	fileType="${fileType,,}" #lowercase
 	if [[ " ${fileTypeArray[@]} " =~ " ${fileType} " ]]; then
-    a=$(ls -sh "${result}")
-    echo -e "${a%%\ *}"
-		ffmpeg -i "${result}" 2>&1 | grep --color=always "Stream #0:.*:\|Duration:*"
-		echo -e "\n\n"
+    fileDataArray=($(ls -lh --full-time "${result}"))
+    #echo "${fileDataArray[5]} ${fileDataArray[6]%.*}"
+    echo "${fileDataArray[4]} ${fileDataArray[5]} ${fileDataArray[6]%.*}"
+    #echo "${fileDataArray[4]}"
+    ffprobe "${result}" 2>&1 | grep "Stream #0:.*:\|Duration:*" | sed 's/^[ ][ ]//'
 	fi
+  echo -e '\n'
 done
