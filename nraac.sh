@@ -1,6 +1,6 @@
 #!/bin/bash
 
-extArray=( mp4 mp4 )
+extArray=( mp4 )
 
 inDir='0in'
 outDir='0out'

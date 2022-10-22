@@ -1,6 +1,6 @@
 #!/bin/bash
 
-extArray=( avi mkv mov mp4 m4a m4v 3pg rmvb wmv )
+extArray=( avi flv mkv mov mp4 mpeg mpg m4a m4v 3pg rmvb wmv )
 
 inDir='0in'
 outDir='0out'
