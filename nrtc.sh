@@ -18,7 +18,7 @@ for i in *; do
     extLower="${ext@L}"
   if [ -f "${i}" ] && [[ " ${extArray[@]} " =~ " ${extLower} " ]]; then
     filename="${i%.*}"
-    mv "${i}" "${inDir}"/"${i}"
+    mv ./"${i}" "${inDir}"/"${i}"
     ffmpeg \
       -i "${inDir}"/"${i}" \
       -filter:v "scale=w='max(1920,iw)':h='min(1080,ih)':force_original_aspect_ratio=decrease:force_divisible_by=8" \
