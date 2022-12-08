@@ -21,7 +21,7 @@ function base_rename {
     filename="${i%.*}"
     fileext="${i##*.}"
     fileext="${fileext,,}"  #lower case file extension
-    if [ "${filename}" == "${a}" ]; then
+    if [ './info' != "${i}" ] && [ "${filename}" == "${a}" ]; then
       index=$(date +"%s%N")
       mv "${i}" "${filename}_${index}.${fileext}"
     fi
