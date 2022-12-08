@@ -2,12 +2,14 @@
 
 function move {
   file="${1##*/}"
+  filename="${file%.*}"
+  fileext="${file##*.}"
+  fileext="${fileext,,}"  #lower case file extension
+  file="${filename}.${fileext}"
   if [ ! -f "${2}/${file}" ]; then
-    mv "${1}" "${2}"/
+    mv "${1}" "${2}/${file}"
   else
     index=$(date +"%s%N")
-    filename="${file%.*}"
-    fileext="${1##*.}"
     mv "${1}" "${2}/${filename}_${index}.${fileext}"
   fi
 }
@@ -17,16 +19,37 @@ function clean {
     mkdir images
   fi
   pwd
+
+  # move all images to ./images/
   find ./* -not -path './images/*' -type f -iregex '.*\(jpg\|jpeg\|png\|gif\|webp\)' | \
     while read file; do
       move "$file" images;
     done
+
+  # move all videos to ./
   find ./* -mindepth 1 -type f -iregex '.*\(mkv\|mp4\|m4v\|mov\|avi\|wmv\|webm\)' | \
     while read file; do
       move "$file" .;
     done
+
+  # remove files that are not images, videos, or info
   find ./* -type f -not -iregex '.*\(jpg\|jpeg\|png\|gif\|webp\|mkv\|mp4\|m4v\|mov\|avi\|wmv\|webm\|info\)' -exec rm {} \;
-  find ./* -type d -not -name 'images' -exec rm -r {} \;
+
+  # remove directories that aren't ./images/
+  find ./* -type d -not -name 'images' -exec rm -r {} \; # ./* to not return . directory
+
+  # find uppercase image file extensions and rename
+  find -path './images/*' -regextype posix-extended -regex '.*[A-Z].{,3}$' | \
+    while read file; do
+      move "$file" images;
+    done
+
+  # find uppercase video file extensions and rename
+  find -maxdepth 1 -regextype posix-extended -regex '.*[A-Z].{,3}$' | \
+    while read file; do
+      move "$file" .;
+    done
+
   fdupes -rdN ./
   rmdir --ignore-fail-on-non-empty images
 }
