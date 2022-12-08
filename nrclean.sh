@@ -14,6 +14,21 @@ function move {
   fi
 }
 
+# find files with the same base name and rename
+function base_rename {
+  a=''
+  while read -r i; do
+    filename="${i%.*}"
+    fileext="${i##*.}"
+    fileext="${fileext,,}"  #lower case file extension
+    if [ "${filename}" == "${a}" ]; then
+      index=$(date +"%s%N")
+      mv "${i}" "${filename}_${index}.${fileext}"
+    fi
+    a="${filename}"
+  done
+}
+
 function clean {
   if [ ! -d images ]; then
     mkdir images
@@ -39,16 +54,22 @@ function clean {
   find ./* -type d -not -name 'images' -exec rm -r {} \; # ./* to not return . directory
 
   # find uppercase image file extensions and rename
-  find -path './images/*' -regextype posix-extended -regex '.*[A-Z].{,3}$' | \
+  find -path './images/*' -type f -regextype posix-extended -regex '.*[A-Z].{,3}$' | \
     while read file; do
       move "$file" images;
     done
 
   # find uppercase video file extensions and rename
-  find -maxdepth 1 -regextype posix-extended -regex '.*[A-Z].{,3}$' | \
+  find -maxdepth 1 -type f -regextype posix-extended -regex '.*[A-Z].{,3}$' | \
     while read file; do
       move "$file" .;
     done
+
+  # find images with the same base name and rename
+  find -path './images/*' -type f | sort | base_rename
+
+  # find vidoes with the same base name and rename
+  find -maxdepth 1 -type f | sort | base_rename
 
   fdupes -rdN ./
   rmdir --ignore-fail-on-non-empty images
