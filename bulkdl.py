@@ -22,9 +22,13 @@ class href_parser(HTMLParser):
 def html_parser(url: str, extensions: tuple[str]) -> None:
   #print(f'{url=}')
   #print(f'{extensions=}')
-  httprequest = Request(url)
+  #httprequest = Request(url)
+  httprequest = Request(url, headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'})
   with urlopen(httprequest) as response:
     #print(f'{response.status=}')
+    #print(f'{response.msg=}')
+    #print(f'{dir(response.headers)=}')
+    #print(f'{response.read().decode("utf-8")=}')
     parser = href_parser()
     parser.feed(response.read().decode())
     for ext in extensions:

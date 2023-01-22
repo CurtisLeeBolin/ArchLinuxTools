@@ -77,7 +77,7 @@ function clean {
 
 if [ ! -z "$1" ]; then
   if [ -d "$1" ]; then
-    cd "$1"
+    cd ./"$1"
     clean
     cd ..
   else
