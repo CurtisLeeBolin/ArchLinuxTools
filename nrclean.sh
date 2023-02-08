@@ -42,13 +42,13 @@ function clean {
     done
 
   # move all videos to ./
-  find ./* -mindepth 1 -type f -iregex '.*\(mkv\|mp4\|m4v\|mov\|avi\|wmv\|webm\)' | \
+  find ./* -mindepth 1 -type f -iregex '.*\(mkv\|mp4\|m4v\|mov\|avi\|wmv\|webm\|ts\)' | \
     while read file; do
       move "$file" .;
     done
 
   # remove files that are not images, videos, or info
-  find ./* -type f -not -iregex '.*\(jpg\|jpeg\|png\|gif\|webp\|mkv\|mp4\|m4v\|mov\|avi\|wmv\|webm\|info\)' -exec rm {} \;
+  find ./* -type f -not -iregex '.*\(jpg\|jpeg\|png\|gif\|webp\|mkv\|mp4\|m4v\|mov\|avi\|wmv\|webm\|ts\|info\)' -exec rm {} \;
 
   # remove directories that aren't ./images/
   find ./* -type d -not -name 'images' -exec rm -r {} \; # ./* to not return . directory
