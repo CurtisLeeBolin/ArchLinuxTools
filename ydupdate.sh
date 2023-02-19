@@ -5,15 +5,15 @@ if ! which git; then
   sudo pacman -Sy git
 fi
 
-if ! [ -d ~/Projects ]; then
-  mkdir ~/Projects
+if ! [ -d ~/.local/share/python3-venv ]; then
+  python3 -m venv ~/.local/share/python3-venv
+  ~/.local/share/python3-venv/bin/python -m pip install --upgrade pip
 fi
 
-cd ~/Projects
+cd /tmp/
+git clone --depth=1 https://github.com/yt-dlp/yt-dlp.git
+~/.local/share/python3-venv/bin/python -m pip install yt-dlp/
+rm -rf yt-dlp/
 
-if [ -d yt-dlp ]; then
-  cd yt-dlp
-  git pull
-else
-  git clone https://github.com/yt-dlp/yt-dlp.git
-fi
+rm ~/.local/bin/yt-dlp
+ln -s ~/.local/share/python3-venv/bin/yt-dlp ~/.local/bin/yt-dlp

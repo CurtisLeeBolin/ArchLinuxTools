@@ -1,15 +1,16 @@
 #!/bin/bash
+# ydupdate.sh
 
-APP_DIR=~/Projects/nrdl
-
-if [ ! -d "${APP_DIR}"/cpython ]; then
-  mkdir -p "${APP_DIR}"
-  cd "${APP_DIR}"
-  python -m venv cpython
+if ! which git; then
+  sudo pacman -Sy git
 fi
 
-#"${APP_DIR}"/cpython/bin/pip install --upgrade onlyfans-scraper
+if ! [ -d ~/.local/share/python3-venv ]; then
+  python3 -m venv ~/.local/share/python3-venv
+  ~/.local/share/python3-venv/bin/python -m pip install --upgrade pip
+fi
 
-#"${APP_DIR}"/cpython/bin/pip install --upgrade git+https://github.com/taux1c/onlyfans-scraper
+~/.local/share/python3-venv/bin/python -m pip install --upgrade cyberdrop-dl
 
-"${APP_DIR}"/cpython/bin/python -m pip install --upgrade cyberdrop-dl
+rm ~/.local/bin/nrdl
+ln -s ~/.local/share/python3-venv/bin/cyberdrop-dl ~/.local/bin/nrdl
