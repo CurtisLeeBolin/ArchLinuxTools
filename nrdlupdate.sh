@@ -1,5 +1,5 @@
 #!/bin/bash
-# ydupdate.sh
+# nrdlupdate.sh
 
 if ! which git; then
   sudo pacman -Sy git
