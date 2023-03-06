@@ -2,10 +2,12 @@
 
 errorFileArray=()
 
-for i in *.mkv; do
-  ffprobe -i ./"${i}" 2>/dev/null
-  if [ $? -eq 1 ]; then
-    errorFileArray+=("${i}")
+for i in *; do
+  if [ -f "${i}" ]; then
+    ffprobe -i ./"${i}" 2>/dev/null
+    if [ $? -eq 1 ]; then
+      errorFileArray+=("${i}")
+    fi
   fi
 done
 
