@@ -2,6 +2,10 @@
 
 cwd="$(pwd)"
 
+if [ ! -d ~/.local/bin ]; then
+  mkdir -p ~/.local/bin
+fi
+
 for i in *.{py,sh}; do
   if [ "${i}" != 'link-my-tools.sh' ]; then
     j="${i##*/}"
