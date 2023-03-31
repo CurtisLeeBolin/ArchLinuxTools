@@ -5,5 +5,5 @@ if [[ ! -f $(which git 2>/dev/null) ]]; then
   sudo pacman -Sy git
 fi
 
-python -m pip install ~/Peojects/nrtc/
+python -m pip install ~/Projects/nrtc/
 
