@@ -1,5 +1,5 @@
 #!/bin/bash
-# avtcupdate.sh
+# update-avtc.sh
 
 if [[ ! -f $(which git 2>/dev/null) ]]; then
   sudo pacman -Sy --noconfirm --needed git
