@@ -77,9 +77,10 @@ function clean {
 
 if [ ! -z "$1" ]; then
   if [ -d "$1" ]; then
+    pwd=$(pwd)
     cd ./"$1"
     clean
-    cd ..
+    cd "${pwd}"
   else
     echo "\'$1\' does not exist."
     exit
