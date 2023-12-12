@@ -18,4 +18,4 @@ else
   ~/.local/lib/nrdl/bin/python -m pip install git+https://github.com/Jules-WinnfieldX/CyberDropDownloader
 fi
 
-cp ~/.local/lib/nrdl/bin/cyberdrop-dl ~/.local/bin/nrdl
+#cp ~/.local/lib/nrdl/bin/cyberdrop-dl ~/.local/bin/nrdl
