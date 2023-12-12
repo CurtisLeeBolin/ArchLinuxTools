@@ -35,6 +35,9 @@ function clean {
   fi
   pwd
 
+  # extract archives
+  find . -iregex '.*\(zip\|rar\|7z\)' -exec 7z x {} -y \;
+
   # move all images to ./images/
   find ./* -not -path './images/*' -type f -iregex '.*\(jpg\|jpeg\|png\|gif\|webp\)' | \
     while read file; do
