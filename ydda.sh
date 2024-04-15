@@ -1,16 +1,16 @@
 #!/bin/bash
-# ydd
-# Downloads all videos of a channel/user/playlist or list of videos with date
-# ydd <link> <link> ...
+# ydda
+# Downloads all audio of a channel/user/playlist or list of videos with date
+# ydda <link> <link> ...
 
 url="$@"
 
 download_video () {
-	yt-dlp \
-  --sub-langs en,id,-live_chat \
-  --embed-subs \
+  yt-dlp \
   --embed-metadata \
-  --output "%(upload_date)s %(uploader)s - %(title)s [%(id)s].%(ext)s"  \
+  --extract-audio \
+  --prefer-free-formats \
+  --output "%(upload_date)s %(title)s [%(id)s].%(ext)s"  \
   $2 \
   $1
 }

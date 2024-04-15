@@ -1,30 +1,16 @@
 #!/bin/bash
-# yd
-# Downloads all videos of a channel/user/playlist or list of videos
-# yd <link> <link> ...
+# ydp
+# Downloads all videos of a playlist with index
+# ydp <link> <link> ...
 
 url="$@"
-
-#download_video () {
-#	while true; do
-# 		yt-dlp \
-#      --sub-langs en,id,-live_chat \
-#      --embed-subs \
-#      --embed-metadata \
-#      $2 \
-#    	$1
-#		if [[ $? -eq 0 ]]; then
-#      break
-#    fi
-#	done
-#}
 
 download_video () {
 	yt-dlp \
   --sub-langs en,id,-live_chat \
   --embed-subs \
   --embed-metadata \
-  --output "%(uploader)s - %(title)s [%(id)s].%(ext)s"  \
+  --output "%(playlist_index)s %(uploader)s - %(title)s [%(id)s].%(ext)s"  \
   $2 \
   $1
 }
