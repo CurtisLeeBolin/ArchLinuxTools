@@ -51,10 +51,10 @@ function clean {
     done
 
   # remove files that are not images, videos, or info
-  find ./* -type f -not -iregex '.*\(jpg\|jpeg\|png\|gif\|webp\|mkv\|mp4\|m4v\|mov\|avi\|wmv\|webm\|ts\|info\)' -exec rm {} \;
+  find ./* -type f -not -iregex '.*\(jpg\|jpeg\|png\|gif\|webp\|mkv\|mp4\|m4v\|mov\|avi\|wmv\|webm\|ts\|info\)' -exec ionice --class idle rm {} \;
 
   # remove directories that aren't ./images/
-  find ./* -type d -not -name 'images' -exec rm -r {} \; # ./* to not return . directory
+  find ./* -type d -not -name 'images' -exec ionice --class idle rm -r {} \; # ./* to not return . directory
 
   # find uppercase image file extensions and rename
   find -path './images/*' -type f -regextype posix-extended -regex '.*[A-Z].{,3}$' | \
@@ -74,8 +74,8 @@ function clean {
   # find vidoes with the same base name and rename
   find -maxdepth 1 -type f | sort | base_rename
 
-  fdupes -rdN ./
-  rmdir --ignore-fail-on-non-empty images
+  ionice --class idle fdupes -rdN ./
+  ionice --class idle rmdir --ignore-fail-on-non-empty images
 }
 
 if [ ! -z "$1" ]; then
