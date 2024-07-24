@@ -10,9 +10,11 @@ def main():
   args = parser.parse_args()
 
   os.makedirs(args.directory, exist_ok=True)
-  os.chdir(args.directory)
 
-  subprocess.run(['nano', 'urls'])
+  subprocess.run(['nano', f'{args.directory}/urls'])
+
+  with open("list", "a") as f:
+    f.write(f'{args.directory}\n')
 
 if __name__ == '__main__':
   main()
