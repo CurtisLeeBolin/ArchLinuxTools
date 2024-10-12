@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ionice -c 3 df -h /srv/sv/
+df -h /srv/storage0/sv/
 
