@@ -25,9 +25,7 @@
 import os, shlex, subprocess, time, datetime, re
 
 class AvtcCommon:
-	fileType=['avi', 'flv', 'mov', 'mp4', 'mpeg', 'mpg', 'ogg', 'ogm',
-		'ogv', 'wmv', 'm2ts', 'mkv', 'rmvb', 'rm', '3gp', 'm4a', '3g2',
-		'mj2', 'asf', 'divx', 'vob']
+	fileType = ['mkv', 'webm']
 
 	def checkFileType(self, fileExtension):
 		fileExtension = fileExtension[1:].lower()
