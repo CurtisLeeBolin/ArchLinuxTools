@@ -11,11 +11,8 @@ fi
 
 ~/.local/lib/yt-dlp/bin/python -m pip install --upgrade pip
 
-if [ -d ~/Projects/yt-dlp/ ]; then
-  ~/.local/lib/yt-dlp/bin/python -m pip install ~/Projects/yt-dlp/
-else
-  ~/.local/lib/yt-dlp/bin/python -m pip install git+https://github.com/yt-dlp/yt-dlp.git
-  ~/.local/lib/yt-dlp/bin/python -m pip install curl-cffi
-fi
+#~/.local/lib/yt-dlp/bin/python -m pip install ~/Projects/yt-dlp/
+~/.local/lib/yt-dlp/bin/python -m pip install git+https://github.com/yt-dlp/yt-dlp.git
+~/.local/lib/yt-dlp/bin/python -m pip install curl-cffi
 
 cp ~/.local/lib/yt-dlp/bin/yt-dlp ~/.local/bin/
