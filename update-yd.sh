@@ -12,7 +12,7 @@ fi
 ~/.local/lib/yt-dlp/bin/python -m pip install --upgrade pip
 
 #~/.local/lib/yt-dlp/bin/python -m pip install ~/Projects/yt-dlp/
-~/.local/lib/yt-dlp/bin/python -m pip install git+https://github.com/yt-dlp/yt-dlp.git
-~/.local/lib/yt-dlp/bin/python -m pip install curl-cffi
+#~/.local/lib/yt-dlp/bin/python -m pip install git+https://github.com/yt-dlp/yt-dlp.git
+~/.local/lib/yt-dlp/bin/python -m pip install yt-dlp[default,curl-cffi,secretstorage]
 
 cp ~/.local/lib/yt-dlp/bin/yt-dlp ~/.local/bin/
