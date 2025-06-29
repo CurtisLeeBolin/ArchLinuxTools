@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-for i in */; do
+for i in $(ls -d -- */); do
   if [ -d "${i}" ]; then
-    nrclean "${i::-1}"
+    nrclean "${i}"
   fi
 done
