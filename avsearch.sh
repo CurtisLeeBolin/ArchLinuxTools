@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fileTypeArray=(avi flv mov mp4 mpeg mpg ogg ogm ogv wmv m2ts mkv rmvb rm 3gp m4a 3g2 mj2 asf divx vob webm)
+file_type_array=(avi flv mov mp4 mpeg mpg ogg ogm ogv wmv m2ts mkv rmvb rm 3gp m4a 3g2 mj2 asf divx vob webm)
 
 
 print_help () {
@@ -9,39 +9,40 @@ print_help () {
   echo "avsearch [OPTION] [blob search term]"
   echo
   echo "'-h, --help' Prints this help."
-  echo "'-c, --concise' No extra info about video files and no directories."
+  echo "'-v, --verbose' Extra info about video files"
+}
+
+
+get_regex_string () {
+  init_run=true
+  for ext in "${file_type_array[@]}"; do
+    if ${init_run}; then
+      ext_regex_string="(${ext}"
+    else
+      ext_regex_string="${ext_regex_string}|${ext}"
+    fi
+    init_run=false
+  done
+  ext_regex_string="${ext_regex_string})"
+  #regex_string=".*$(printf '%q' ${query}).*${ext_regex_string}"
+  regex_string=".*${query}.*${ext_regex_string}"
 }
 
 
 search () {
-  init_run=true
-  for ext in "${fileTypeArray[@]}"; do
-    if ${init_run}; then
-      find_ext="-iname *.${ext}"
-    else
-      find_ext="${find_ext} -o -iname *.${ext}"
-    fi
-    init_run=false
-  done
-  find "${HOME}"/{Videos,.tmp/saved}/ -type f -iname "${query}*" -a \( ${find_ext} \) -printf '%f\n' | sort
+  #find "${HOME}"/{Videos,.tmp/saved}/ -type f -regextype posix-egrep -iregex "${regex_string}" -printf '%f\n' | sort
+  find "${HOME}"/{Videos,.tmp/saved}/ -type f -regextype posix-egrep -iregex "${regex_string}" | sort
 }
 
 
 search_verbose () {
-  resultArray=()
-  mapfile -d '' resultArray < <(find "${HOME}"/{Videos,.tmp/saved}/ -iname "${query}*" -print0 2>/dev/null)
-
-  for result in "${resultArray[@]}"; do
+  result_array=()
+  mapfile -d '' result_array < <(find "${HOME}"/{Videos,.tmp/saved}/ -type f -regextype posix-egrep -iregex "${regex_string}" -print0 2>/dev/null)
+  for result in "${result_array[@]}"; do
     echo "${result}"
-    fileType="${result##*.}"
-    fileType="${fileType,,}" #lowercase
-    if [[ " ${fileTypeArray[@]} " =~ " ${fileType} " ]]; then
-      fileDataArray=($(ls -lh --full-time "${result}"))
-      #echo "${fileDataArray[5]} ${fileDataArray[6]%.*}"
-      echo "${fileDataArray[4]} ${fileDataArray[5]} ${fileDataArray[6]%.*}"
-      #echo "${fileDataArray[4]}"
-      ffprobe "${result}" 2>&1 | grep "Stream #0:.*:\|Duration:*" | sed 's/^[ ][ ]//'
-    fi
+    file_data_array=($(ls -lh --full-time "${result}"))
+    echo "${file_data_array[4]} ${file_data_array[5]} ${file_data_array[6]%.*}"
+    ffprobe "${result}" 2>&1 | grep "Stream #0:.*:\|Duration:*" | sed 's/^[ ][ ]//'
     echo -e '\n'
   done
 }
@@ -58,18 +59,22 @@ error_message () {
 if [ "${1}" == "-h" ] || [ "${1}" == "--help" ]; then
   print_help
   exit 0
-elif [ "${1}" == "-c" ]; then
-  if [ -n "${1}" ] || [ -n "${2}" ]; then
+elif [ "${1}" == "-v" ] || [ "${1}" == "--verbose" ]; then
+  if [ -n "${1}" ]; then
     shift
     query="${@}"
-    search
+    regex_string=
+    get_regex_string
+    search_verbose
   else
     error_message
   fi
 else
-  if [ -n "${1}" ]; then
+  if [ -n "${1}" ] || [ -n "${2}" ]; then
     query="${@}"
-    search_verbose
+    regex_string=
+    get_regex_string
+    search
   else
     error_message
   fi
