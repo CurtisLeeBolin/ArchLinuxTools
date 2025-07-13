@@ -25,9 +25,10 @@ def find_files_by_extension(directory_path, target_extension):
   found_files = []
   for root, _, files in os.walk(directory_path):
     for file in files:
-      if file.lower().endswith(target_extension):
-        full_path = os.path.join(root, file)
-        found_files.append(full_path)
+      if not 'clips' in root:
+        if file.lower().endswith(target_extension):
+          full_path = os.path.join(root, file)
+          found_files.append(full_path)
   return found_files
 
 
@@ -37,10 +38,8 @@ def runSubprocess(command):
   ) as p:
     stderrList = ['']*256
     for line in p.stderr:
-      #printOnSameLine(line)
       del stderrList[0]
       stderrList.append(line)
-    #print()
     p.wait()
     return (p.returncode, stderrList)
 
@@ -57,7 +56,6 @@ def main():
     returncode, stderrList = runSubprocess(command)
     if returncode != 0:
       print(stderrList[-1])
-      #os.remove(file)
       pathlib.Path(file).unlink(missing_ok=True)
     else:
       stderrData = ''.join(stderrList)
@@ -67,7 +65,6 @@ def main():
         s = int(datetime.timedelta(hours=x.tm_hour,minutes=x.tm_min,seconds=x.tm_sec).total_seconds())
         if s < 240:
           print(f'{s:3d}s  {file}')
-          #os.remove(file)
           pathlib.Path(file).unlink(missing_ok=True)
       else:
         with open('./NA.log', 'a') as f:
