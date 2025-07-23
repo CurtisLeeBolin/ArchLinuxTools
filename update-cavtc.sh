@@ -11,16 +11,10 @@ fi
 
 ~/.local/lib/cavtc/bin/python -m pip install --upgrade pip
 
-if [ -d ~/Projects/avtc/ ]; then
-  ~/.local/lib/cavtc/bin/python -m pip install ~/Projects/avtc/
+if [ -d ~/Projects/cavtc/ ]; then
+  ~/.local/lib/cavtc/bin/python -m pip install ~/Projects/cavtc/
 else
-  ~/.local/lib/cavtc/bin/python -m pip install git+https://github.com/CurtisLeeBolin/avtc.git
-fi
-
-if [ -d ~/Projects/cluster_avtc/ ]; then
-  ~/.local/lib/cavtc/bin/python -m pip install ~/Projects/cluster_avtc/
-else
-  ~/.local/lib/cavtc/bin/python -m pip install git+https://github.com/CurtisLeeBolin/cluster_avtc.git
+  ~/.local/lib/cavtc/bin/python -m pip install git+https://github.com/CurtisLeeBolin/cavtc.git
 fi
 
 cp ~/.local/lib/cavtc/bin/cavtc ~/.local/bin/
