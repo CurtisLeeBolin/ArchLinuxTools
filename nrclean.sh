@@ -5,6 +5,7 @@
 #Dependences
 #  - 7zip
 #  - fdupes
+#  - nrmvclips
 ############
 
 
@@ -91,6 +92,7 @@ if [ ! -z "$1" ]; then
     pwd=$(pwd)
     cd "$1"
     clean
+    nrmvclips
     cd "${pwd}"
   else
     echo "\'$1\' does not exist."
@@ -98,4 +100,5 @@ if [ ! -z "$1" ]; then
   fi
 else
   clean
+  nrmvclips
 fi
