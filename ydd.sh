@@ -8,6 +8,7 @@ command_array=(
   '--sub-lang' 'en,id,-live_chat'
   '--embed-subs'
   '--embed-metadata'
+  '--live-from-start'
   '--output' "%(upload_date)s %(uploader)s - %(title)s [%(id)s].%(ext)s"
 )
 

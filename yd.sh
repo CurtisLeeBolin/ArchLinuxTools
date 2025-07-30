@@ -24,6 +24,7 @@ download_video () {
   --sub-langs en,id,-live_chat \
   --embed-subs \
   --embed-metadata \
+  --live-from-start \
   --output "%(uploader)s - %(title)s [%(id)s].%(ext)s"  \
   $2 \
   $1
