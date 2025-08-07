@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-ORIGINAL_DIR="${HOME}/.tmp/nr/model/"
+
+ORIGINAL_DIR="${1}"
+
+if [ -z "${ORIGINAL_DIR}" ]; then
+  echo "Error: Original directory paramter not set."
+  exit 1
+fi
 
 mapfile -t image_dir_array < <(find . -mindepth 1 -maxdepth 1 -type d -printf '%P\n')
 
