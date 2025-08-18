@@ -9,6 +9,9 @@ command_array=(
   '--embed-subs'
   '--embed-metadata'
   '--live-from-start'
+  '--sleep-interval' '2'
+  '--retries' '3'
+  '--retry-sleep' '10'
   '--output' "%(uploader)s - %(title)s [%(id)s].%(ext)s"
 )
 
@@ -28,6 +31,9 @@ if [[ "$url" =~ ( |\') ]]; then
   arr=(${url})
   for each in "${arr[@]}"; do
     "${command_array[@]}" ${each}
+    max=60
+    min=15
+    sleep $(shuf -i $min-$max -n 1)
   done
 else
   "${command_array[@]}" ${url}
