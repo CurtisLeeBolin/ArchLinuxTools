@@ -3,28 +3,35 @@
 # Downloads all videos of a playlist with index
 # ydp <link> <link> ...
 
-url="$@"
+command_array=(
+  'yt-dlp'
+  '--sub-lang' 'en,id,-live_chat'
+  '--embed-subs'
+  '--embed-metadata'
+  '--live-from-start'
+  '--sleep-interval' '2'
+  '--retries' '3'
+  '--retry-sleep' '10'
+  '--output' "%(playlist_index)s %(uploader)s - %(title)s [%(id)s].%(ext)s"
+)
 
-download_video () {
-	yt-dlp \
-  --sub-langs en,id,-live_chat \
-  --embed-subs \
-  --embed-metadata \
-  --output "%(playlist_index)s %(uploader)s - %(title)s [%(id)s].%(ext)s"  \
-  $2 \
-  $1
-}
-
-cookies=""
 if [ -f cookies.txt ]; then
-  cookies="--cookies cookies.txt"
+  command_array+=('--cookies' 'cookies.txt')
 fi
 
-if [[ "$url" =~ ( |\') ]]; then
-  arr=(${url})
+if [[ "$1" == '-l' ]]; then
+  command_array+=('--format' 'bv[height<=1080]+ba/b[height<=1080]')
+  shift
+fi
+
+if [[ "${@}" =~ ( |\') ]]; then
+  arr=(${@})
   for each in "${arr[@]}"; do
-    download_video ${each} "${cookies}"
+    "${command_array[@]}" ${each}
+    max=60
+    min=15
+    sleep $(shuf -i $min-$max -n 1)
   done
 else
-  download_video ${url} "${cookies}"
+  "${command_array[@]}" ${@}
 fi
