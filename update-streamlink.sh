@@ -1,16 +1,20 @@
 #!/bin/bash
 # update-streamlink.sh
 
+app='streamlink'
+
 if [[ ! -f $(which git 2>/dev/null) ]]; then
   sudo pacman -Sy --noconfirm --needed git
 fi
 
-if [ ! -d ~/.local/lib/streamlink/ ]; then
-  python -m venv ~/.local/lib/streamlink
+if [ -d ~/.local/lib/"${app}"/ ]; then
+  rm -r ~/.local/lib/"${app}"
 fi
 
-~/.local/lib/streamlink/bin/python -m pip install --upgrade pip
+python -m venv ~/.local/lib/"${app}"
 
-~/.local/lib/streamlink/bin/python -m pip install git+https://github.com/streamlink/streamlink.git
+~/.local/lib/"${app}"/bin/python -m pip install --upgrade pip
 
-cp ~/.local/lib/streamlink/bin/streamlink ~/.local/bin/
+~/.local/lib/"${app}"/bin/python -m pip install git+https://github.com/"${app}"/"${app}".git
+
+cp ~/.local/lib/"${app}"/bin/"${app}" ~/.local/bin/

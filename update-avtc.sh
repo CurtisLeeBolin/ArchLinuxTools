@@ -1,21 +1,20 @@
 #!/bin/bash
 # update-avtc.sh
 
+app='avtc'
+
 if [[ ! -f $(which git 2>/dev/null) ]]; then
   sudo pacman -Sy --noconfirm --needed git
 fi
 
-
-if [ ! -d ~/.local/lib/avtc/ ]; then
-  python -m venv ~/.local/lib/avtc
+if [ -d ~/.local/lib/"${app}"/ ]; then
+  rm -r ~/.local/lib/"${app}"
 fi
 
-~/.local/lib/avtc/bin/python -m pip install --upgrade pip
+python -m venv ~/.local/lib/"${app}"
 
-if [ -d ~/Projects/avtc/ ]; then
-  ~/.local/lib/avtc/bin/python -m pip install ~/Projects/avtc/
-else
-  ~/.local/lib/avtc/bin/python -m pip install git+https://github.com/CurtisLeeBolin/avtc.git
-fi
+~/.local/lib/"${app}"/bin/python -m pip install --upgrade pip
 
-cp ~/.local/lib/avtc/bin/avtc ~/.local/bin/
+~/.local/lib/"${app}"/bin/python -m pip install git+https://github.com/CurtisLeeBolin/"${app}".git
+
+cp ~/.local/lib/"${app}"/bin/"${app}" ~/.local/bin/

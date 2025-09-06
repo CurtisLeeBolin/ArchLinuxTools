@@ -1,20 +1,20 @@
 #!/bin/bash
 # update-cavtc.sh
 
+app='cavtc'
+
 if [[ ! -f $(which git 2>/dev/null) ]]; then
   sudo pacman -Sy --noconfirm --needed git
 fi
 
-if [ ! -d ~/.local/lib/cavtc/ ]; then
-  python -m venv ~/.local/lib/cavtc
+if [ -d ~/.local/lib/"${app}"/ ]; then
+  rm -r ~/.local/lib/"${app}"
 fi
 
-~/.local/lib/cavtc/bin/python -m pip install --upgrade pip
+python -m venv ~/.local/lib/"${app}"
 
-if [ -d ~/Projects/cavtc/ ]; then
-  ~/.local/lib/cavtc/bin/python -m pip install ~/Projects/cavtc/
-else
-  ~/.local/lib/cavtc/bin/python -m pip install git+https://github.com/CurtisLeeBolin/cavtc.git
-fi
+~/.local/lib/"${app}"/bin/python -m pip install --upgrade pip
 
-cp ~/.local/lib/cavtc/bin/cavtc ~/.local/bin/
+~/.local/lib/"${app}"/bin/python -m pip install git+https://github.com/CurtisLeeBolin/"${app}".git
+
+cp ~/.local/lib/"${app}"/bin/"${app}" ~/.local/bin/
