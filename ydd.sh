@@ -23,8 +23,8 @@ if [[ "$1" == '-l' ]]; then
   shift
 fi
 
-if [[ "$1" == '--live-from-start' ]]; then
-  command_array+=('--lfs')
+if [[ "$1" == '--lfs' ]]; then
+  command_array+=('--live-from-start')
   shift
 fi
 

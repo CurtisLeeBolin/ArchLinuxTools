@@ -89,16 +89,18 @@ function clean {
 
 if [ ! -z "$1" ]; then
   if [ -d "$1" ]; then
-    pwd=$(pwd)
+    original_mtime=$(stat -c %Y "$1")
+    start_directory=$(pwd)
     cd "$1"
     clean
-    nrmvclips
-    cd "${pwd}"
+    cd "${start_directory}"
+    touch -d "@$original_mtime" "$1"
   else
     echo "\'$1\' does not exist."
     exit
   fi
 else
+  original_mtime=$(stat -c %Y ".")
   clean
-  nrmvclips
+  touch -d "@$original_mtime" "."
 fi
