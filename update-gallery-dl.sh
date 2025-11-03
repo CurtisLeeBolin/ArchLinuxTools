@@ -15,6 +15,7 @@ python -m venv ~/.local/lib/"${app}"
 
 ~/.local/lib/"${app}"/bin/python -m pip install --upgrade pip
 
-~/.local/lib/"${app}"/bin/python -m pip install git+https://github.com/mikf/"${app}".git
+#~/.local/lib/"${app}"/bin/python -m pip install git+https://github.com/mikf/"${app}".git
+~/.local/lib/"${app}"/bin/python -m pip install "${app}[extra]"
 
 cp ~/.local/lib/"${app}"/bin/"${app}" ~/.local/bin/
