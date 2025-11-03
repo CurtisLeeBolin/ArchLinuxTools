@@ -4,12 +4,9 @@
 # episode, run the following:
 # $ mkvmerge -o fileOut.mkv --split chapters:1,2,3 0in/fileIn.mkv
 
-IN_DIR="0in"
-OUT_DIR="0out"
-
-mkdir "${IN_DIR}" "${OUT_DIR}"
-
-for i in *.mkv; do
-  mv "${i}" "${IN_DIR}"/"${i}"
-  mkvmerge -o "${OUT_DIR}"/"${i}" --split chapters:all "${IN_DIR}"/"${i}"
-done
+if [ -n "${1}" ]; then
+  mkvmerge -o "${1%.*}"_."${1##*.}" --split chapters:all "${1}"
+else
+  echo 'Error: no file given'
+  exit 1
+fi
