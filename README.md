@@ -1,4 +1,4 @@
-# Arch Linux Tools
+# Unix-Like Tools
 
 Just some tools I wrote and use.
 
