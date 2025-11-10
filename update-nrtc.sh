@@ -1,11 +1,6 @@
 #!/bin/bash
 # update-nrtc.sh
 
-if [[ ! -f $(which git 2>/dev/null) ]]; then
-  sudo pacman -Sy --noconfirm --needed git
-fi
-
-
 if [ ! -d ~/.local/lib/nrtc/ ]; then
   python -m venv ~/.local/lib/nrtc
 fi

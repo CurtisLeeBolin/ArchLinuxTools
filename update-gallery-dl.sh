@@ -3,10 +3,6 @@
 
 app='gallery-dl'
 
-if [[ ! -f $(which git 2>/dev/null) ]]; then
-  sudo pacman -Sy --noconfirm --needed git
-fi
-
 if [ -d ~/.local/lib/"${app}"/ ]; then
   rm -r ~/.local/lib/"${app}"
 fi
